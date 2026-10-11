@@ -4,7 +4,7 @@
 > 写乐谱，用**真实采样音源**发声 — Compose music in Python, render with real sampled instruments.
 
 用代码写乐谱、用 **FluidSynth + SoundFont 真实采样** 渲染成品音乐（3 分钟级）。
-乐谱即代码，全部显式，无随机预设——同一乐谱逐样本可复现。
+乐谱即代码，**真钢琴 / 真弦乐 / 真人声**发声——同乐谱逐样本可复现，还能导出 MIDI 回 DAW 再编曲。
 
 [![Agent Skill](https://img.shields.io/badge/Agent%20Skill-yes-blueviolet.svg)](#-这是一个-agent-skill)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
@@ -64,18 +64,20 @@ s.render("out.mp3", midi="out.mid")           # 真音源 + 混响 + 母带
 
 ## 亮点
 
-- **真实音色**：不是数学合成波形，而是 FluidSynth 加载 SoundFont 真实录音采样——真钢琴、真弦乐、真大提琴。
-- **乐谱即代码**：曲式/和弦/旋律/织体/音量全部在 Python 脚本里显式写出，无自动作曲、无随机。
+- **真实音色**：FluidSynth 加载 SoundFont 真实录音采样——真钢琴、真弦乐、真大提琴、真人声合唱。
+- **83 种乐器**：General MIDI 全家族任你挑，古典、管弦、电影配乐编制信手拈来（`wa.ENSEMBLES` 给常用编制）。
 - **音量全可控**：分轨基准音量 + **段落级音量包络**，AI 自己编配，避免某件乐器盖过其他。
-- **诊断友好**：渲染报告给出分轨响度，某轨盖过其他声部时自动警告。
+- **混响空间感**：一条 `reverb_mix` / `reverb_room` 参数，把抒情曲放进你想要的空间。
+- **诊断友好**：渲染报告给出分轨响度，某轨盖过其他声部时自动警告，配器问题一眼可见。
 - **可复现**：同乐谱两次渲染逐样本相等。
 - **可导出**：同时输出 MIDI，拖进任何 DAW / MuseScore 二次编曲。
 
 ## 为什么音色好听
 
-纯代码合成波形（正弦/锯齿叠加）只能得到"电子玩具"音色；**真实乐器的好听来自逐键/
-逐音的录音采样**。write-audio-pro 用 FluidSynth 加载 SoundFont（如 MuseScore General、
-FluidR3），你写的 MIDI 乐谱由这些真实采样发声——真钢琴、真弦乐、真大提琴。
+真实乐器的好听来自**逐键 / 逐音的录音采样**。write-audio-pro 用 FluidSynth 加载 SoundFont
+（如 MuseScore General、FluidR3），你写的 MIDI 乐谱由这些真实采样发声——按下 A4 就是一台
+真三角钢琴弹的 A4，弦乐是一整组真弦乐手呼吸出来的声场。搭配混响与母带，抒情、古典、电影感
+配乐都能直接成片。
 
 ## 安装
 
@@ -223,18 +225,21 @@ python examples/unsent-letter/make.py
 python tests/smoke.py     # 乐理/乐器/乐谱/音量/MIDI/渲染 端到端（≈10 秒）
 ```
 
-## License
+## 常见问题
 
-[MIT](LICENSE)。生成的 MIDI 无版权，可自由使用；所用 SoundFont 各有独立授权，请自行确认。
-
-- **和"纯代码合成波形"的工具（如 codingaudio）有什么不同？**
-  那个从零用 numpy 造波形，音色像电子玩具；write_audio_pro 是"写 MIDI → FluidSynth 加载
-  真实采样发声"，真钢琴/真弦乐。同乐谱，两种引擎音色天差地别。
+- **和纯合成引擎（如 [write-audio](https://github.com/haocker/write-audio)）有什么不同？**
+  那款用 numpy 现场造波形，主打零素材、开箱即用与电子/舞曲/音效；本款"写 MIDI → FluidSynth
+  加载真实采样发声"，主打真钢琴/真弦乐/真声部与抒情、古典、电影感配乐。两者共用一套乐谱 DSL，
+  切换成本极低。
 - **旋律怎么来？** 你（AI/作者）写：`piano.notes([(0, "E5", 0.7), ...])`，
   或用 Python 循环把 `wa.chord` / `wa.scale` 组织成乐句。
-- **想换风格？** 没有"风格参数"——换乐器、换和声、换织体、换速度，就是你写的乐谱。
-- **没有打击乐？** 本 skill 专注真实音色的抒情/管弦音乐。需要鼓组/电子乐，
-  用合成引擎类工具；或用 GM 打击乐 program（通道 10）。
+- **想换风格？** 换乐器、换和声、换织体、换速度——你写的乐谱就是风格。
+- **要打击乐/电子鼓组？** 本 skill 专注真实音色的抒情/管弦音乐；需要鼓组可用 GM 打击乐
+  program（MIDI 通道 10），或搭配合成引擎类工具。
 - **怎么做结尾？** 逐层退出 + 最后 1-2 小节只留钢琴/长音 + `s.fade(out_seconds=5)`。
 - **能商用吗？** 生成的 MIDI 无版权；SoundFont 各自的授权请自行确认（MuseScore General
   为 CC0/MIT 系，FluidR3 为 MIT 系，一般可自由使用）。
+
+## License
+
+[MIT](LICENSE)。生成的 MIDI 无版权，可自由使用；所用 SoundFont 各有独立授权，请自行确认。
