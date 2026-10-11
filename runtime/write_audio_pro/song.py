@@ -167,7 +167,10 @@ class Track:
             return None
         spb = total_beats / n if total_beats > 0 else 0.0
         idx = np.arange(n, dtype=np.float64) * spb           # 每个采样点的拍位置
-        db = np.empty(n, dtype=np.float64)
+        # 用 zeros 初始化：未初始化的 empty 若某点未被任何区间覆盖，
+        # 会保留内存垃圾值；若垃圾值为大正数，10^(db/20) 溢出为 inf，导致渲染 nan/损坏。
+        # 用 0dB（即增益 1.0）兜底，安全且中性。
+        db = np.zeros(n, dtype=np.float64)
         pts = self._vol_points
         # 逐段填充（点数通常很少，直接循环）
         first_b, first_d = pts[0]
@@ -177,7 +180,9 @@ class Track:
         for i in range(len(pts) - 1):
             b0, d0 = pts[i]
             b1, d1 = pts[i + 1]
-            m = (idx > b0) & (idx < b1)
+            # 半开区间 [b0, b1)：保证断点恰好落在采样点上时该点必被覆盖
+            # （左闭右开即可覆盖所有边界；首/末点在上面已单独用 <= / >= 覆盖）
+            m = (idx >= b0) & (idx < b1)
             if not np.any(m):
                 continue
             t = (idx[m] - b0) / (b1 - b0) if b1 > b0 else np.ones(np.sum(m))
