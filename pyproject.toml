@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "write-audio-pro"
+version = "1.0.0"
+description = "用代码写乐谱、用真实采样音源渲染成品音乐（钢琴/弦乐/管弦/抒情）"
+readme = "README.md"
+requires-python = ">=3.8"
+license = { text = "MIT" }
+authors = [{ name = "write-audio-pro contributors" }]
+keywords = ["music", "midi", "fluidsynth", "soundfont", "composition", "audio", "piano", "orchestral"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: Multimedia :: Sound/Audio :: MIDI",
+    "Topic :: Multimedia :: Sound/Audio :: Sound Synthesis",
+]
+dependencies = [
+    "numpy>=1.16",
+    "pretty_midi>=0.2.9",
+    "mido>=1.2",
+]
+
+[project.urls]
+Homepage = "https://github.com/YOUR_USERNAME/write-audio-pro"
+Repository = "https://github.com/YOUR_USERNAME/write-audio-pro"
+Issues = "https://github.com/YOUR_USERNAME/write-audio-pro/issues"
+
+[project.scripts]
+write-audio-pro = "write_audio_pro.__main__:main"
+
+[tool.setuptools]
+package-dir = { "" = "runtime" }
+
+[tool.setuptools.packages.find]
+where = ["runtime"]

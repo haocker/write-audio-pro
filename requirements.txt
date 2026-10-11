@@ -1,0 +1,20 @@
+numpy>=1.16
+pretty_midi>=0.2.9
+mido>=1.2
+
+# 另需系统级工具（任选其一安装方式）：
+#   FluidSynth —— 发声引擎（把 MIDI 渲染成音频）
+#     Linux : sudo apt install fluidsynth
+#     macOS : brew install fluid-synth
+#      Win  : https://www.fluidsynth.org/
+#   SoundFont 音色库 —— 真实采样音频（.sf2 / .sf3）
+#     Linux : sudo apt install musescore-general-soundfont fluid-soundfont-gm
+#     其他  : 下载 FluidR3_GM.sf2 / MuseScore_General.sf3
+#   FFmpeg —— 响度测量与 mp3 编码
+#     Linux : sudo apt install ffmpeg
+#     macOS : brew install ffmpeg
+#
+# 或用环境变量指定：
+#   WRITE_AUDIO_PRO_SF2=/path/to/FluidR3_GM.sf2
+#   WRITE_AUDIO_PRO_FLUIDSYNTH=/path/to/fluidsynth
+#   WRITE_AUDIO_PRO_FFMPEG=/path/to/ffmpeg

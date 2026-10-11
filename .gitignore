@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+env/
+
+# 渲染产物（示例会重新生成；保留一个演示曲，其余忽略）
+output/
+*.wav
+examples/**/out/*.wav
+
+# 音色库（体积大，不纳入仓库）
+*.sf2
+*.sf3
+
+# 编辑器 / 系统
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
