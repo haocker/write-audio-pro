@@ -1,13 +1,54 @@
 # write-audio-pro
 
+> 🤖 **这是一个 AI Agent Skill（智能体技能）** — 让 AI 助手「会写音乐」的能力包。
 > 写乐谱，用**真实采样音源**发声 — Compose music in Python, render with real sampled instruments.
 
 用代码写乐谱、用 **FluidSynth + SoundFont 真实采样** 渲染成品音乐（3 分钟级）。
 乐谱即代码，全部显式，无随机预设——同一乐谱逐样本可复现。
 
+[![Agent Skill](https://img.shields.io/badge/Agent%20Skill-yes-blueviolet.svg)](#-这是一个-agent-skill)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8%2B-blue.svg)](https://www.python.org/)
 [![FluidSynth](https://img.shields.io/badge/engine-FluidSynth-green.svg)](https://www.fluidsynth.org/)
+
+---
+
+## 🤖 这是一个 Agent Skill
+
+仓库遵循 **Agent Skills** 标准结构（`SKILL.md` + 运行时 + 知识库 + 示例 + 自测），
+可直接安装到支持 Skill 的 AI 编程助手（Claude Code / CodeBuddy 等）中，
+让助手获得「用代码创作音乐」的能力。
+
+### 怎么安装为 Skill
+
+把整个仓库（或其目录）放进助手的 skills 目录即可：
+
+```bash
+# 常见位置（以 CodeBuddy / Claude Code 为例）
+git clone https://github.com/haocker/write-audio-pro.git \
+  ~/.codebuddy/skills/write-audio-pro-skill
+
+# 或 ~/.claude/skills/write-audio-pro-skill
+```
+
+安装后，助手遇到「写一段悲伤的音乐」「生成一段钢琴曲」这类请求时，
+会自动加载本 skill，按 `SKILL.md` 的指引写乐谱、渲染成品。
+
+### Skill 结构（标准）
+
+| 文件 / 目录 | 作用 |
+|---|---|
+| `SKILL.md` | **技能入口**：frontmatter（name/description）+ AI 操作指引 |
+| `runtime/write_audio_pro/` | 运行时：乐谱 API、乐理、音色表、渲染引擎 |
+| `knowledge/` | 知识库：写乐谱指南、GM 音色全表（AI 写谱时参考） |
+| `examples/` | 示例曲（AI 学习写法的样板） |
+| `tests/smoke.py` | 自测（验证技能可用） |
+
+> 💡 不装成 Skill 也完全能用 —— 它同时是一个独立的 Python 音乐库，见下方「安装」。
+
+---
+
+## 快速上手
 
 ```python
 import write_audio_pro as wa
