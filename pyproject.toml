@@ -25,9 +25,9 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/YOUR_USERNAME/write-audio-pro"
-Repository = "https://github.com/YOUR_USERNAME/write-audio-pro"
-Issues = "https://github.com/YOUR_USERNAME/write-audio-pro/issues"
+Homepage = "https://github.com/haocker/write-audio-pro"
+Repository = "https://github.com/haocker/write-audio-pro"
+Issues = "https://github.com/haocker/write-audio-pro/issues"
 
 [project.scripts]
 write-audio-pro = "write_audio_pro.__main__:main"

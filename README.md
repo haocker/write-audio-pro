@@ -41,13 +41,13 @@ FluidR3），你写的 MIDI 乐谱由这些真实采样发声——真钢琴、�
 ### 方式一：pip 安装（推荐）
 
 ```bash
-pip install git+https://github.com/YOUR_USERNAME/write-audio-pro.git
+pip install git+https://github.com/haocker/write-audio-pro.git
 ```
 
 ### 方式二：克隆仓库
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/write-audio-pro.git
+git clone https://github.com/haocker/write-audio-pro.git
 cd write-audio-pro
 pip install -r requirements.txt
 # 运行时把 runtime/ 加入 PYTHONPATH 即可 import write_audio_pro
